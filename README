@@ -1,0 +1,177 @@
+SN9C20x USB 2.0 Webcam Driver
+==============================
+
+This driver is essentially a fork of the Syntek Webcam drivers for Linux
+by Nicolas Vivien, specifically to accomodate SN9C20x chipset based Webcams.
+
+The driver currently supports the latest version of Video For Linux i.e
+V4L2. V4L1 is deprecated, and applications like Camorama that use only V4L1 will
+only work with libv4l ("v4l1compat.so").
+
+This driver currently supports Skype v2.x, Ekiga v2.x & even aMSN
+
+Warning :
+The SN9C20x USB 2.0 Webcam Driver for SN9C20x chipset based Webcams is
+currently under development. Using this driver can result in damage and data
+loss to your system. Use this driver only if you know what you are doing.
+--------------------------------------------------------------------------------
+
+Table of contents :
+
+1. Requirements
+ 1.1 Kernel module
+ 1.2 Documentation
+ 1.3 Decoder
+
+2. Available Packages
+
+3. Compilation
+ 3.1 Kernel module
+ 3.2 Documentation
+
+4. Testing
+
+5. Installation
+
+6. Usage
+
+7. Status of project
+
+8. Documentation & References
+
+9. Contact
+
+10. Licence
+
+11. Disclaimer
+
+--------------------------------------------------------------------------------
+
+1. Requirements
+
+ 1.1 Kernel module
+
+   To compile the driver you need :
+     Kernel 2.6.22 or higher
+     Kernel headers
+     make
+     gcc
+
+ 1.2 Documentation
+
+   To compile the documentation you need :
+     doxygen
+     graphviz
+
+ 1.3 Decoder
+
+   Most video applications do not support the image encoding SN9C20x-based
+   webcams offer. Such applications need to have the image stream converted
+   for them. This can be done using "libv4l", which is pre-loaded between the
+   application and the video resource and translates the image stream into a
+   usable format.
+
+   Most distributions offer precompiled packages. If yours does not, the
+   sources are available here :
+     http://freshmeat.net/projects/libv4l/
+
+   Consult libv4l's README for usage details.
+
+--------------------------------------------------------------------------------
+
+2. Available Packages
+
+  There are packages for various distributions available here :
+    http://repo.or.cz/w/pkgmicrodia.git
+
+--------------------------------------------------------------------------------
+
+3. Compilation
+
+ 3.1 Kernel module
+
+   To build the kernel module ("driver") :
+     $ make
+     (This will create the kernel object file called "sn9c20x.ko".)
+
+ 3.2 Documentation
+
+   To build the documentation :
+     $ make doc
+     $ make cleandoc
+
+--------------------------------------------------------------------------------
+
+4. Testing
+
+  To load the driver, follow these steps (as root) :
+    # modprobe videodev
+    # modprobe compat-ioctl32  // Only required for 64-bit Linux OS
+    # make insmod
+
+  Note: Most applications require libv4l for image format decoding (see "1.3
+  Decoder"). Consult libv4l documentation for full usage details. Here is an
+  example for a common usage :
+    $ LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so mplayer tv:// -tv \
+      driver=v4l2:width=640:height=480:fps=25:device=/dev/video0 -vo xv
+
+--------------------------------------------------------------------------------
+
+5. Installation
+
+  $ strip -g sn9c20x.ko
+  And as root :
+  # cp sn9c20x.ko /lib/modules/`uname -r`/kernel/drivers/media/video/usbvideo/
+  # depmod -a
+
+--------------------------------------------------------------------------------
+
+6. Usage
+
+  We recommend using v4l2ucp to adjust and improve image quality.
+    http://sourceforge.net/projects/v4l2ucp/
+
+  We are also developing our own GUI, available here :
+    http://repo.or.cz/r/guimicrodia.git
+
+--------------------------------------------------------------------------------
+
+7. Status
+
+  The kernel module is currently under active development.
+
+  The full list of supported webcams can be found here :
+    http://groups.google.com/group/microdia/web/project-status
+
+--------------------------------------------------------------------------------
+
+8. Contact
+
+  To request support, please contact us on Microdia Mailing List :
+    https://groups.google.com/group/microdia/
+    microdia@googlegroups.com
+
+--------------------------------------------------------------------------------
+
+9. More Documentation & References
+
+  All documentation and references for microdia webcam driver can be found at
+    http://groups.google.com/group/microdia/web
+
+  Latest version of this driver is usually available at the following location
+    http://repo.or.cz/w/microdia.git
+
+--------------------------------------------------------------------------------
+
+10. Licence
+
+  SN9C20x USB 2.0 Webcam Driver is distributed under the GPL licence version 2
+  or later (GPLv2+).
+
+--------------------------------------------------------------------------------
+
+11. Disclaimer
+
+  The "microdia" project has no connection to "MICRODIA Ltd." or "Sonix
+  Technology Co., Ltd.". They are not responsible for anything we do or our
+  driver does and we are not responsible for their actions or their hardware.
