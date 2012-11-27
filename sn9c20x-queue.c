@@ -7,6 +7,7 @@
  * @note Original code from UVC webcam driver
  * @note Copyright (C) 2005-2008 Laurent Pinchart (laurent.pinchart@skynet.be)
  * @note Copyright (C) 2008 Brian Johnson (brijohn@gmail.com)
+ * @note Ported to GNU/Linux Kernel 3.6.x Series by Marco A Benatto (benatto at mandriva.com.br)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -74,11 +75,12 @@
 #include <linux/list.h>
 #include <linux/module.h>
 #include <linux/usb.h>
+#include <linux/videodev2.h>
 #include <linux/vmalloc.h>
 #include <linux/wait.h>
 #include <linux/mm.h>
 #include <asm/atomic.h>
-#include <linux/slab.h>
+
 #include "sn9c20x.h"
 
 /**

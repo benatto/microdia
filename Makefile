@@ -8,7 +8,7 @@ sn9c20x-objs += sn9c20x-dev.o sn9c20x-queue.o
 sn9c20x-objs += sn9c20x-bridge.o omnivision.o micron.o hv7131r.o
 
 ifeq ($(CONFIG_SN9C20X_DEBUGFS),y)
-#sn9c20x-objs += sn9c20x-debugfs.o
+sn9c20x-objs += sn9c20x-debugfs.o
 EXTRA_CFLAGS = -DCONFIG_SN9C20X_DEBUGFS
 endif
 

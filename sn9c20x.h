@@ -27,6 +27,8 @@
 #include <linux/kernel.h>
 #include <linux/version.h>
 #include <linux/usb.h>
+/**for kzalloc**/
+#include <linux/slab.h>
 #ifdef CONFIG_SN9C20X_EVDEV
 #include <linux/input.h>
 #endif

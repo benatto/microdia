@@ -1403,7 +1403,7 @@ static long v4l_sn9c20x_ioctl(struct file *fp,
 		break;
 	}
 	default:
-		err = video_ioctl2(fp, cmd, arg);
+		err = video_ioctl2(inode, fp, cmd, arg);
 	}
 #else
 	err = video_ioctl2(fp, cmd, arg);

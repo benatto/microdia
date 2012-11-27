@@ -22,6 +22,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *
+ *
+ * 2012-11-26: Ported to GNU/Linux Kernel 3.6.x series by Marco A Benatto <benatto at mandriva.com.br>
+ *
  */
 
 #include <linux/module.h>
@@ -276,7 +280,8 @@ static struct usb_device_id sn9c20x_table[] = {
 	{SN9C20X_USB_DEVICE(0xA168, 0x0614, MT9M111_SENSOR, 0x5d)},
 	{SN9C20X_USB_DEVICE(0xA168, 0x0615, MT9M111_SENSOR, 0x5d)},
 	{SN9C20X_USB_DEVICE(0xA168, 0x0617, MT9M111_SENSOR, 0x5d)},
-	{ }
+	{SN9C20X_USB_DEVICE(0x0C45, 0x63EE, MT9M111_SENSOR, 0X5d)},
+	{}
 };
 
 

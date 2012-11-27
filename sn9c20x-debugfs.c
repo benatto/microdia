@@ -26,8 +26,7 @@
 
 #include <linux/debugfs.h>
 #include <linux/seq_file.h>
-#include <linux/slab.h>
-
+#include <linux/module.h>
 
 #include "sn9c20x.h"
 #include "sn9c20x-bridge.h"
@@ -182,7 +181,7 @@ static int bridge_dump_open(struct inode *inode, struct file *file)
 }
 
 static struct file_operations bridge_dump_ops = {
-	/*.owner		= THIS_MODULE,*/
+	.owner		= THIS_MODULE,
 	.open		= bridge_dump_open,
 	.read		= seq_read,
 	.llseek		= seq_lseek,
