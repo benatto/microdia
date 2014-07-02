@@ -38,8 +38,8 @@
 #define SN9C20X_H
 
 #define DRIVER_NAME		"sn9c20x"			/**< Name of this driver */
-#define DRIVER_VERSION		"v2009.04"			/**< Version of this driver */
-#define DRIVER_VERSION_NUM	0x200904			/**< Version numerical of this driver */
+#define DRIVER_VERSION		"v2014.07"			/**< Version of this driver */
+#define DRIVER_VERSION_NUM	0x201407			/**< Version numerical of this driver */
 #define DRIVER_DESC		"SN9C20x USB 2.0 Webcam Driver"	/**< Short description of this driver */
 #define DRIVER_AUTHOR		"Nicolas VIVIEN and microdia project" \
 				" <microdia@googlegroups.com>"	/**< Author of this driver */

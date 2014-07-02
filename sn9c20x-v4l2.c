@@ -1459,10 +1459,10 @@ int v4l_sn9c20x_register_video_device(struct usb_sn9c20x *dev)
 	dev->vdev->dev = &dev->interface->dev;
 	dev->vdev->owner = THIS_MODULE;
 	dev->vdev->type = VID_TYPE_CAPTURE;
-#else
-	dev->vdev->parent = &dev->interface->dev;
-#endif
 	dev->vdev->current_norm = 0;
+#else
+	dev->vdev->dev_parent = &dev->interface->dev;
+#endif
 	dev->vdev->tvnorms = 0;
 	dev->vdev->fops = &v4l_sn9c20x_fops;
 	dev->vdev->release = video_device_release;

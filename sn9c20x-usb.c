@@ -281,7 +281,7 @@ static struct usb_device_id sn9c20x_table[] = {
 	{SN9C20X_USB_DEVICE(0xA168, 0x0615, MT9M111_SENSOR, 0x5d)},
 	{SN9C20X_USB_DEVICE(0xA168, 0x0617, MT9M111_SENSOR, 0x5d)},
 	{SN9C20X_USB_DEVICE(0x0C45, 0x63EE, MT9M111_SENSOR, 0X5d)},
-	{}
+	{} /* Terminating entry */
 };
 
 
@@ -1121,6 +1121,34 @@ module_param(max_buffers, byte, 0444);
 
 module_param(log_level, byte, 0444);
 
+/* notify on usb status changes */
+static int usb_notify(struct notifier_block *self, unsigned long action, void *dev)
+{
+	switch (action) {
+		case USB_DEVICE_ADD: 
+			UDIA_DEBUG("USB device added \n");
+			break;
+		case USB_DEVICE_REMOVE: 
+			UDIA_DEBUG("USB device removed \n"); 
+			break; 
+		case USB_BUS_ADD: 
+			UDIA_DEBUG("USB Bus added \n"); 
+			break; 
+		case USB_BUS_REMOVE: 
+			UDIA_DEBUG("USB Bus removed \n"); 
+	} 
+	return NOTIFY_OK; 
+} 
+
+/**
+ * @var usb_nb
+ *
+ * This variable contains some callback
+ */
+static struct notifier_block usb_nb = {
+	.notifier_call = usb_notify, 
+};
+
 /**
  * @returns 0 if all is OK
  *
@@ -1221,6 +1249,9 @@ static int __init usb_sn9c20x_init(void)
 
 	/* Register the driver with the USB subsystem */
 	result = usb_register(&usb_sn9c20x_driver);
+	
+	/* Hook to the USB core to get notification on any addition or removal of USB devices */ 
+    usb_register_notify(&usb_nb); 
 
 	if (result)
 		UDIA_ERROR("usb_register failed ! Error number %d\n", result);
@@ -1244,6 +1275,9 @@ static void __exit usb_sn9c20x_exit(void)
 
 	/* Deregister this driver with the USB subsystem */
 	usb_deregister(&usb_sn9c20x_driver);
+
+	/* Hook to the USB core to get notification on any addition or removal of USB devices */ 
+    usb_unregister_notify(&usb_nb); 
 }
 
 
